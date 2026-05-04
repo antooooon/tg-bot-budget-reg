@@ -15,7 +15,7 @@ from app.handlers.expenses import router as expenses_router
 from app.handlers.stats import router as stats_router
 from app.handlers.settings import router as settings_router
 from app.handlers.keyboards import main_menu_kb
-from app.data.repositories.base import create_tables
+from app.db.init import db_init
 
 
 load_dotenv()
@@ -47,7 +47,8 @@ dp.include_router(settings_router)
 
 
 async def main() -> None:
-    await create_tables()
+    # await create_tables()
+    await db_init()
     # Initialize Bot instance with default bot properties which will be passed to all API calls
     bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     # And the run events dispatching

@@ -3,8 +3,8 @@ from aiogram.types import Message, ReplyKeyboardRemove
 from aiogram.fsm.context import FSMContext
 from app.states import AddSettings
 
-from app.data.repositories.base import async_session
-from app.data.repositories.budget import set_the_budget
+from app.db.repositories.base import async_session
+from app.db.repositories.budget import set_the_budget
 
 from app.handlers.keyboards import settings_type_keyboard
 from app.handlers.keyboards import settings_budget_type_keyboard

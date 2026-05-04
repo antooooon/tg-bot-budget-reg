@@ -1,4 +1,4 @@
-from app.data.models import Transaction, Budget
+from app.db.models import Transaction, Budget
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy import select
 from datetime import date, timedelta

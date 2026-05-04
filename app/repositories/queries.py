@@ -1,5 +1,5 @@
 from sqlalchemy import select, func
-from app.data.models.transaction import Transaction
+from app.db.models.transaction import Transaction
 #from sqlalchemy.ext.asyncio import AsyncSession
 
 async def get_stats(session):

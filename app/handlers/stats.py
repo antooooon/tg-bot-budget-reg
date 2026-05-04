@@ -1,5 +1,5 @@
-from app.data.repositories.base import async_session
-from app.data.repositories.queries import get_stats
+from app.db.repositories.base import async_session
+from app.db.repositories.queries import get_stats
 from aiogram.types import Message
 from aiogram import Router, F
 

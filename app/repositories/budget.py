@@ -4,7 +4,7 @@ import calendar
 
 from sqlalchemy.sql.functions import current_time
 
-from app.data.models import Budget
+from app.db.models import Budget
 from sqlalchemy.ext.asyncio import AsyncSession
 
 class BudgetRepository:

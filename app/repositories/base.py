@@ -1,5 +1,5 @@
 from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
-from app.data.models import DataBase
+from app.db.models import DataBase
 
 DATABASE_URL = "sqlite+aiosqlite:///./expenses.db"      # - здесь путь к БД локально
 
