@@ -6,11 +6,13 @@ from aiogram.types import Message, ReplyKeyboardMarkup, ReplyKeyboardRemove, Key
 from app.handlers.keyboards import main_menu_kb, income_expense_keyboard
 from app.states import AddExpense
 
-from app.db.repositories.base import async_session
-from app.db.repositories.crud import create_expense
+from app.repositories.base import async_session
+from app.repositories.crud import create_expense
 #from app.handlers.start import add_expense
 
+
 router = Router()
+
 
 #@router.message(Command("add"))
 @router.message(F.text.contains("Финансы"))

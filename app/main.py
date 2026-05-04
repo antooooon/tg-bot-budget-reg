@@ -5,7 +5,7 @@ import sys
 from dotenv import load_dotenv
 from os import getenv
 
-from aiogram import Bot, Dispatcher, html
+from aiogram import Dispatcher, Bot, html
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.filters import CommandStart
@@ -15,13 +15,33 @@ from app.handlers.expenses import router as expenses_router
 from app.handlers.stats import router as stats_router
 from app.handlers.settings import router as settings_router
 from app.handlers.keyboards import main_menu_kb
+
+
 from app.db.init import db_init
+from app.services.expense_service import ExpenseService
 
 
 load_dotenv()
 TOKEN = getenv("BOT_TOKEN")
 
-dp = Dispatcher()
+
+# dp = Dispatcher()
+# dp.include_router(expenses_router)
+# dp.include_router(stats_router)
+# dp.include_router(settings_router)
+def create_dispatcher() -> Dispatcher:
+    dp = Dispatcher()
+
+    dp["expenses_router"] = ExpenseService()
+    dp["stats_router"] = ExpenseService()
+    dp["settings_router"] = ExpenseService()
+
+    # dp.include_router(expenses_router)
+    # dp.include_router(stats_router)
+    # dp.include_router(settings_router)
+    return dp
+
+
 
 #@form_router.message(CommandStart())
 @dp.message(CommandStart())
@@ -41,9 +61,7 @@ async def command_start_handler(message: Message) -> None:
                          )
 
 
-dp.include_router(expenses_router)
-dp.include_router(stats_router)
-dp.include_router(settings_router)
+
 
 
 async def main() -> None:
@@ -52,6 +70,7 @@ async def main() -> None:
     # Initialize Bot instance with default bot properties which will be passed to all API calls
     bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
     # And the run events dispatching
+    dp = create_dispatcher()
     await dp.start_polling(bot)
     await command_start_handler
 
