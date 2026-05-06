@@ -3,9 +3,9 @@ from app.db.models import Transaction
 
 
 class ExpenseRepository:
-    def __init__(self, dp_type, dto):
-        self.dp_type = dp_type
-        self.dto = dto
+    # def __init__(self, dp_type, dto):
+    #     self.dp_type = dp_type
+    #     self.dto = dto
 
     async def create(self, dto, budget):
         async with async_session() as session:
@@ -22,6 +22,7 @@ class ExpenseRepository:
             # await session.refresh(expense)
 
             return expense
+
 
     async def get_budget_by_week(self, week_start):
         async with async_session() as session:

@@ -30,11 +30,11 @@ TOKEN = getenv("BOT_TOKEN")
 # dp.include_router(stats_router)
 # dp.include_router(settings_router)
 def create_dispatcher() -> Dispatcher:
-    dp = Dispatcher()
+    dp = Dispatcher()           # Dispatcher в aiogram ведёт себя как словарь (dict-like storage)
 
-    dp["expenses_router"] = ExpenseService()
-    dp["stats_router"] = ExpenseService()
-    dp["settings_router"] = ExpenseService()
+    dp["expense_service"] = ExpenseService()
+    # dp["stats_router"] = ExpenseService()
+    # dp["settings_router"] = ExpenseService()
 
     # dp.include_router(expenses_router)
     # dp.include_router(stats_router)
