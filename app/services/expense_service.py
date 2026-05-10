@@ -1,5 +1,8 @@
 from app.repositories.expense_repo import ExpenseRepository
-from app.schemas.expense import CreateExpenseDTO
+from app.services.budget_service import BudgetService
+from app.utils.dates import get_week_start
+
+from datetime import date
 
 
 class ExpenseService:
@@ -7,14 +10,8 @@ class ExpenseService:
         self.repo = ExpenseRepository()
 
     async def create_expense(self, dto):
-        # валидация (проверка на количество и тип)
-        # доп. логика (округление, конвертация и т.д.)
-        # вызов репозитория
-        budget = 0
-
-        return await self.repo.create(
-                        dto=dto,
-                        budget=budget)
+        return await self.repo.create(dto=dto)
 
 
 # handler → DTO → service → repo → DB
+# expense_service → budget_service → budget_repo

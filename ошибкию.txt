@@ -20,3 +20,5 @@
     - нельзя подменить на тестах
     решение:
     - dp["expense_service"] = ExpenseService()
+
+# CRUD - сокращение от create, read, update, delete

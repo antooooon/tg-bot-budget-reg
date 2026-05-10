@@ -3,7 +3,7 @@ from aiogram.filters import Command
 from aiogram.fsm.context import FSMContext
 from aiogram.types import Message, ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton, CallbackQuery
 
-from app.handlers.keyboards import main_menu_kb, income_expense_keyboard
+from app.handlers.keyboards import income_expense_keyboard
 from app.states import AddExpense
 
 from app.schemas.expense import CreateExpenseDTO

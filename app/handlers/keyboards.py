@@ -1,25 +1,6 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-def main_menu_kb():
-    return ReplyKeyboardMarkup(
-        keyboard=[
-            [KeyboardButton(text="💵 Финансы"),
-            KeyboardButton(text="📊 Статистика"),
-            KeyboardButton(text="📋 to-do лист"),
-            KeyboardButton(text="⚙️ Настройка")
-            ]
-            ],
-        resize_keyboard=True
-    )
-    # return InlineKeyboardMarkup(
-    #     inline_keyboard=[
-    #         [InlineKeyboardButton(text="💵 Финансы", callback_data="main_fin"),
-    #          InlineKeyboardButton(text="📊 Статистика", callback_data="main_stat"),
-    #          InlineKeyboardButton(text="📋 to-do лист", callback_data="main_todo"),
-    #          InlineKeyboardButton(text="📅 Календарь событий", callback_data="main_events")]
-    #     ]
-    # )
 
 def cancel_kb():
     return ReplyKeyboardMarkup(
@@ -61,13 +42,13 @@ def settings_budget_type_keyboard():
     )
 
 
-def settings_budget_refresh():
-    return ReplyKeyboardMarkup(
-        keyboard=[
-            [KeyboardButton(text="Обновить бюджет")]
-        ],
-        resize_keyboard=True
-    )
+# def settings_budget_refresh():
+#     return ReplyKeyboardMarkup(
+#         keyboard=[
+#             [KeyboardButton(text="Обновить бюджет")]
+#         ],
+#         resize_keyboard=True
+#     )
 
 
 def settings_family_type_keyboard():
