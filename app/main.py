@@ -5,7 +5,7 @@ import sys
 from dotenv import load_dotenv
 from os import getenv
 
-from aiogram import Dispatcher, Bot, html
+from aiogram import Dispatcher, Bot
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 

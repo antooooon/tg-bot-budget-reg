@@ -8,6 +8,8 @@ from app.states import AddExpense
 
 from app.schemas.expense import CreateExpenseDTO
 
+from app.services.container import expense_service
+
 
 router = Router()
 
@@ -77,7 +79,7 @@ async def input_amount(message: Message, state: FSMContext) -> None:
 
 
 @router.message(AddExpense.waiting_for_category)
-async def input_category(message: Message, state: FSMContext, dp: Dispatcher):
+async def input_category(message: Message, state: FSMContext):
     await state.update_data(category=message.text)
 
     state_data = await state.get_data()     # готовим данные для отправки в БД
@@ -89,8 +91,7 @@ async def input_category(message: Message, state: FSMContext, dp: Dispatcher):
         category=message.text
         )
 
-    service = dp["expense_service"]
-    await service.create_expense(dto)
+    await expense_service.create_expense(dto)
     await message.answer(f'Данные отправлены ✅',
                          reply_markup=ReplyKeyboardRemove()
                          )
@@ -102,10 +103,10 @@ async def handle_callback(callback: CallbackQuery):
     data = callback.data
 
 
-@router.message(Command("Cancel"))
-async def cancel_handler(message: Message, state: FSMContext):
-    await state.clear()
-    await message.answer(
-        "Действие отменено",
-        reply_markup=main_menu_kb()
-    )
+# @router.message(Command("Cancel"))
+# async def cancel_handler(message: Message, state: FSMContext):
+#     await state.clear()
+#     await message.answer(
+#         "Действие отменено",
+#         reply_markup=main_menu_kb()
+#     )
