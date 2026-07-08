@@ -1,8 +1,5 @@
 from app.repositories.expense_repo import ExpenseRepository
-from app.services.budget_service import BudgetService
-from app.utils.dates import get_week_start
-
-from datetime import date
+from datetime import datetime
 
 
 class ExpenseService:
@@ -10,6 +7,8 @@ class ExpenseService:
         self.repo = ExpenseRepository()
 
     async def create_expense(self, dto):
+        if dto.date is None:
+            dto.date = datetime.now()
         return await self.repo.create(dto=dto)
 
 

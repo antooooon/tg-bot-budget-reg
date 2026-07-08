@@ -3,9 +3,9 @@ from aiogram.types import Message, ReplyKeyboardRemove
 from aiogram.fsm.context import FSMContext
 from app.states import AddSettings
 
-from app.handlers.keyboards import settings_type_keyboard
-from app.handlers.keyboards import settings_budget_type_keyboard
-from app.handlers.keyboards import settings_family_type_keyboard
+from .keyboards.keyboards import settings_type_keyboard
+from .keyboards.keyboards import settings_budget_type_keyboard
+from .keyboards.keyboards import settings_family_type_keyboard
 
 from app.schemas.budget import CreateBudgetDTO
 

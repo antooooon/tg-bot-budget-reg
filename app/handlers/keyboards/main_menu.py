@@ -1,4 +1,5 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
+from aiogram.types import ReplyKeyboardMarkup, InlineKeyboardMarkup
+from aiogram.types import KeyboardButton, InlineKeyboardButton
 
 
 def main_menu_kb():
@@ -11,4 +12,14 @@ def main_menu_kb():
             ]
             ],
         resize_keyboard=True
+    )
+
+def main_menu_inlinekb():
+    return InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(text="💵 Финансы", callback_data="finance")],
+            [InlineKeyboardButton(text="📊 Статистика", callback_data="stat")],
+            [InlineKeyboardButton(text="📋 to-do лист", callback_data="todo")],
+            [InlineKeyboardButton(text="⚙️ Настройка", callback_data="settings")]
+        ]
     )

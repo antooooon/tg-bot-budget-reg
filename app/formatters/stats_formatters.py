@@ -1,3 +1,6 @@
+from rich.console import Console
+from rich.table import Table
+
 
 def format_stats(stats: list[tuple]) -> str:
     income = {}
@@ -5,12 +8,18 @@ def format_stats(stats: list[tuple]) -> str:
 
     total_income = 0
     total_expense = 0
-    total_budget = 0
+    budget = 0
+    balance = 0
 
     lines = []
+    lines.append(f"📊 Финансы за месяц:")
+    lines.append("")
+    # lines.append(f"Установленный бюджет: {budget}/неделю")
     for row in stats:
 
-        category, type_exp, amount = row
+        lines.append("-" * 50)
+
+        category, type_exp, amount, budget, budget_beg, budget_end = row
 
         if type_exp == "type_income":
             income[category] = amount
@@ -19,12 +28,11 @@ def format_stats(stats: list[tuple]) -> str:
             expense[category] = amount
             total_expense += amount
 
-        total = total_income - total_expense
+        balance = budget - total_expense
 
-        lines.append(f"📊 Твои Финансы за месяц:")
-        lines.append(f"Установленный бюджет: {total_budget}")
-        lines.append(f"Доход - Расход = {total_income} - {total_expense} = {total}")
+        lines.append(f"Бюджет с <u>{budget_beg}</u> по <u>{budget_end}</u>: \n= <b>{budget}</b>")
         lines.append("")
+        # total = total_income - total_expense
 
         lines.append(f"💰 Доход:")
         if income:
@@ -38,8 +46,23 @@ def format_stats(stats: list[tuple]) -> str:
         lines.append("💸 Расход:")
         if expense:
             for cat, amt in expense.items():
-                lines.append(f"- {cat}: {amt}".replace(",", " "))
+                lines.append(f"{cat}: {amt}".replace(",", " "))
         else:
             lines.append("нет данных")
+
+        lines.append(f"Бюджет - Расход:\n= <b>{balance}</b>")
+
+    # < b > Жирный < / b >
+    # < i > Курсив < / i >
+    # < u > Подчёркнутый < / u >
+    # < s > Зачёркнутый < / s >
+
+    # lines.append(f"Доход: {total_income}")
+    # lines.append(f"Расход: {total_expense}")
+    # lines.append(f"Бюджет: {budget}/неделю")
+
+    # lines.append(f"Доход - Расход = {total_income} - {total_expense} = {total}")
+    # lines.append(f"Бюджет - Расход = {budget} - {total_expense} = {balance}")
+    # lines.append("")
 
     return "\n".join(lines)

@@ -22,3 +22,46 @@
     - dp["expense_service"] = ExpenseService()
 
 # CRUD - сокращение от create, read, update, delete
+
+1. нельзя через callback ловить команду /start
+
+
+Телефон
+
+↓
+
+Telegram
+
+↓
+
+HTTP POST
+
+↓
+
+Flask
+
+↓
+
+request.json
+
+↓
+
+Update
+
+↓
+
+Dispatcher
+
+↓
+
+Router
+
+↓
+
+Фильтры
+
+↓
+
+Handler
+
+Вот так выглядит полный путь одного сообщения.

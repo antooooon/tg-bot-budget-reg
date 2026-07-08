@@ -1,7 +1,9 @@
+from sqlalchemy.dialects.mysql import NUMERIC
 from sqlalchemy.orm import Mapped, mapped_column
 from sqlalchemy import Integer, String, DateTime
 from datetime import datetime
 from sqlalchemy import func
+from decimal import Decimal
 
 from .base import DataBase
 
@@ -11,12 +13,10 @@ class Transaction(DataBase):
 
     id: Mapped[int]         = mapped_column(primary_key=True)
     user_id: Mapped[int]    = mapped_column(Integer)
-    #date: Mapped[datetime] = mapped_column(DateTime)
-    date: Mapped[datetime]  = mapped_column(DateTime, default=func.now())   # для прода лучше server_default=func.now()
-    amount: Mapped[int]     = mapped_column(Integer)
+    date: Mapped[datetime]  = mapped_column(DateTime, server_default=func.now())
+    amount: Mapped[Decimal] = mapped_column(NUMERIC(10, 2))
     category: Mapped[str]   = mapped_column(String)
     type_exp: Mapped[str]   = mapped_column(String)
-    # budget: Mapped[int]     = mapped_column(Integer)
 
 # '''from datetime import datetime
 # from sqlalchemy import func
