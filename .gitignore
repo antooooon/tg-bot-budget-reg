@@ -1,0 +1,20 @@
+# created by virtualenv automatically
+# Environment
+.env
+
+# Logs
+log_file.txt
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Virtual environment
+.venv/
+
+# Database
+*.db
+
+# IDE
+.idea/
+
