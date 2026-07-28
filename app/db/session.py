@@ -1,5 +1,9 @@
-from sqlalchemy.ext.asyncio import create_async_engine, async_sessionmaker, AsyncSession
-from app.config import DATABASE_URL
+# from app.bot.runtime import config
+from sqlalchemy.ext.asyncio import async_sessionmaker, AsyncSession, create_async_engine
+
+from app.config.settings import load_config
+
+# from app.config import DATABASE_URL
 
 
 # BASE_DIR = Path(__file__).resolve().parent.parent
@@ -9,8 +13,9 @@ from app.config import DATABASE_URL
 #     f"sqlite+aiosqlite:///{BASE_DIR / 'expenses.db'}"
 # )   # - замена на более боевой вариант. теперь база всегда в одном месте независимо от способа запуска
 
+config = load_config()
 
-engine = create_async_engine(url=DATABASE_URL, echo=True)
+engine = create_async_engine(url=config.database.url, echo=True)
 
 async_session = async_sessionmaker(
     engine,
