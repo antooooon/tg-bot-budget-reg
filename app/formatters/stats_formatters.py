@@ -1,6 +1,3 @@
-from rich.console import Console
-from rich.table import Table
-
 
 def format_stats(stats: list[tuple]) -> str:
     income = {}
@@ -14,7 +11,7 @@ def format_stats(stats: list[tuple]) -> str:
     lines = []
     lines.append(f"📊 Финансы за месяц:")
     lines.append("")
-    # lines.append(f"Установленный бюджет: {budget}/неделю")
+
     for row in stats:
 
         lines.append("-" * 50)
@@ -51,18 +48,5 @@ def format_stats(stats: list[tuple]) -> str:
             lines.append("нет данных")
 
         lines.append(f"Бюджет - Расход:\n= <b>{balance}</b>")
-
-    # < b > Жирный < / b >
-    # < i > Курсив < / i >
-    # < u > Подчёркнутый < / u >
-    # < s > Зачёркнутый < / s >
-
-    # lines.append(f"Доход: {total_income}")
-    # lines.append(f"Расход: {total_expense}")
-    # lines.append(f"Бюджет: {budget}/неделю")
-
-    # lines.append(f"Доход - Расход = {total_income} - {total_expense} = {total}")
-    # lines.append(f"Бюджет - Расход = {budget} - {total_expense} = {balance}")
-    # lines.append("")
 
     return "\n".join(lines)

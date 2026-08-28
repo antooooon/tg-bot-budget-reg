@@ -1,12 +1,11 @@
 from aiogram.types import Update
-from aiohttp.web_response import Response
 import asyncio
 from flask import Flask, Response, request
 
 from app.bot.bot_main import create_bot
 from app.bot.dispatcher_main import create_dispatcher
 from app.config.settings import load_config
-
+from app.startup import start_up
 # from app.bot.runtime import bot, dp, config
 
 config = load_config()
@@ -15,6 +14,10 @@ bot = create_bot(config)
 dp = create_dispatcher()
 
 flask_app = Flask(__name__)
+
+
+async def initialize():
+    await start_up(bot, config)
 
 
 @flask_app.post(config.telegram.webhook_path)
