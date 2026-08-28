@@ -19,7 +19,7 @@ class Config:
 
 
 def load_config() -> Config:
-    print(__name__, os.environ["BOT_TOKEN"])
+
     telegram = TelegramConfig(
         bot_token=os.environ["BOT_TOKEN"],
         webhook_host=os.environ["WEBHOOK_HOST"],
@@ -27,9 +27,9 @@ def load_config() -> Config:
         webhook_secret=os.environ["WEBHOOK_SECRET"]
     )
 
-    base_dir = Path(__file__).resolve().parent.parent
+    BASE_DIR = Path(__file__).resolve().parent
     database = DatabaseConfig(
-        url=f"sqlite+aiosqlite:///{base_dir / 'expenses.db'}"
+        url=f"sqlite+aiosqlite:///{BASE_DIR / 'expenses.db'}"
     )
 
     return Config(

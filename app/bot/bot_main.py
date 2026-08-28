@@ -4,7 +4,6 @@ from aiogram.enums import ParseMode
 
 
 def create_bot(config) -> Bot:
-
     # print(config.telegram.bot_token)
     return Bot(
         token=config.telegram.bot_token,

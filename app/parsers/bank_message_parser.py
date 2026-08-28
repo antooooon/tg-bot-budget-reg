@@ -80,4 +80,3 @@ def parse_payment_date(lines:list) -> str:
             payment_date = line
 
     return payment_date
-

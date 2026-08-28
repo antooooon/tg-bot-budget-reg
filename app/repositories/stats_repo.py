@@ -7,6 +7,7 @@ class StatRepository():
     def __init__(self, session):
         self.session = session
 
+
     async def get_stats(self, user_id: int):
 
         _sql = (

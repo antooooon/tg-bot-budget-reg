@@ -3,6 +3,7 @@ from app.db.session import async_session
 from datetime import date, timedelta
 from app.utils.dates import get_first_monday
 
+
 class BudgetService:
 
     # def __init__(self):

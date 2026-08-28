@@ -62,7 +62,3 @@ def settings_family_type_keyboard():
         ],
         resize_keyboard=True
     )
-
-
-# def show_admin_keyboard() -> 'KeyboardButton':
-#     return [KeyboardButton(text="out of order")]

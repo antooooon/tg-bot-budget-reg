@@ -17,6 +17,3 @@ class StatsService:
                 return "Нет данных"
 
             return format_stats(stats)
-
-
-

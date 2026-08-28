@@ -64,9 +64,6 @@ async def settings_processing_amount(message: Message, state: FSMContext):
 
     state_data = await state.get_data()
 
-    # date_beg=datetime.now()
-    # date_end=datetime.now()
-
     # по умолчанию заполняется текущий и следующий месяц в разрезе недель
     dto = CreateBudgetDTO(
         user_id=message.from_user.id,
@@ -77,7 +74,6 @@ async def settings_processing_amount(message: Message, state: FSMContext):
 
     await budget_service.set_the_budget(dto=dto)
 
-    # await state.set_state(AddSettings.post_to_db)
     await message.answer(f'Данные отправлены ✅',
                          reply_markup=ReplyKeyboardRemove()
                          )

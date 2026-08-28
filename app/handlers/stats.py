@@ -6,6 +6,7 @@ from app.services.container import stats_service
 
 router = Router()
 
+
 @router.message(F.text.contains("Статистика"))
 async def stats_handler(message: Message):
 
@@ -14,5 +15,3 @@ async def stats_handler(message: Message):
     )
 
     await message.answer(text)
-
-

@@ -17,17 +17,16 @@ router = Router()
 
 @router.message(F.text.contains("Финансы"))
 async def add_expense(message: Message, state: FSMContext):
-    await state.set_state(AddExpense.waiting_for_type)    # здесь установили состояние
-    # await message.answer(
-    #     reply_markup=ReplyKeyboardRemove()
-    # )
+
+    await state.set_state(AddExpense.waiting_for_type)
+
     await message.answer(
         f'Укажите тип движения:',
         reply_markup=income_expense_keyboard()
     )
 
 
-@router.callback_query(AddExpense.waiting_for_type)                     # callback хендлер для inline клавы
+@router.callback_query(AddExpense.waiting_for_type)
 async def input_type(callback: CallbackQuery, state: FSMContext):
 
     print(F.data)
@@ -56,33 +55,7 @@ async def input_amount(message: Message, state: FSMContext) -> None:
     await message.answer(text=f"Выберете дату:",
                          reply_markup=await SimpleCalendar().start_calendar()
                          )
-    # message_str = "Выберите категорию:"
-    # if expense_type == "type_expense":
-    #     await message.answer(
-    #         message_str,
-    #         reply_markup=ReplyKeyboardMarkup(
-    #             keyboard=[
-    #                 [KeyboardButton(text="Продукты")],
-    #                 [KeyboardButton(text="Ежемес.платежи")],
-    #                 # [KeyboardButton(text="Коты")],
-    #                 [KeyboardButton(text="Досуг/Другое")],
-    #                 [KeyboardButton(text="McD")]
-    #             ],
-    #             resize_keyboard=True
-    #         )
-    #     )
-    # elif expense_type == "type_income":
-    #     await message.answer(
-    #         message_str,
-    #         reply_markup=ReplyKeyboardMarkup(
-    #             keyboard=[
-    #                 [KeyboardButton(text="Зарплата")],
-    #                 [KeyboardButton(text="Аренда квартир")],
-    #                 [KeyboardButton(text="Другое")]
-    #             ],
-    #             resize_keyboard=True
-    #         )
-    #     )
+
 
 @router.callback_query(SimpleCalendarCallback.filter())
 async def process_calendar(
@@ -96,15 +69,8 @@ async def process_calendar(
         callback_data
     )
 
-    print(selected, date)
-
     if selected:
         await state.update_data(date=date)
-
-        # await callback.message.answer(
-        #     f"Выбрана дата {date.strftime('%d.%m.%Y')}"
-        # )
-
         await state.set_state(AddExpense.waiting_for_category)
 
     state_data = await state.get_data()
@@ -137,15 +103,11 @@ async def process_calendar(
             )
         )
 
-    # await callback.message.answer(text=f"Введите сумму:",
-    #                               reply_markup=ReplyKeyboardRemove()
-    #                               )
     await callback.answer()
 
 
 @router.message(AddExpense.waiting_for_category)
 async def input_category(message: Message, state: FSMContext):
-    # await state.update_data(category=message.text)
 
     state_data = await state.get_data()     # готовим данные для отправки в БД
 
@@ -160,11 +122,5 @@ async def input_category(message: Message, state: FSMContext):
     await expense_service.create_expense(dto)
     await message.answer(f'Данные отправлены ✅',
                          reply_markup=ReplyKeyboardRemove()
-                         #reply_markup=cancel_kb()
                          )
     await state.clear()
-
-#
-# @router.callback_query()
-# async def handle_callback(callback: CallbackQuery):
-#     data = callback.data

@@ -1,20 +1,17 @@
 from aiogram import Router, F
 from aiogram.fsm.context import FSMContext
-from aiogram.types import Message, ReplyKeyboardMarkup, ReplyKeyboardRemove, KeyboardButton, CallbackQuery, \
-    InlineKeyboardMarkup
+from aiogram.types import Message, CallbackQuery
 from aiogram_calendar import SimpleCalendar, SimpleCalendarCallback
 
-from .keyboards.common import cancel_kb
-from .keyboards.keyboards import income_expense_keyboard, category_select_expense_keyboard, category_select_income_keyboard
 from app.states import AddExpense
-
 from app.schemas.expense import CreateExpenseDTO
-
 from app.services.container import expense_service
-
 from app.services.logging import put_in_log
+from .keyboards.keyboards import income_expense_keyboard, category_select_expense_keyboard, category_select_income_keyboard
+
 
 router = Router()
+
 
 @router.callback_query(F.data == "finance")
 async def add_expense(callback: CallbackQuery,
@@ -25,21 +22,17 @@ async def add_expense(callback: CallbackQuery,
         f'Укажите тип движения:',
         reply_markup=income_expense_keyboard()
     )
-    # current_state = await state.get_state()
-    # state_data = await state.get_data()
-    # with open("log_file.txt", "a", encoding="utf-8") as log:
-    #     log.write(f": {current_state}, {state_data}\n")
     await callback.answer()
+
 
 @router.callback_query(AddExpense.waiting_for_type)
 async def input_type(callback: CallbackQuery,
                      state: FSMContext):
     await state.update_data(type_exp=callback.data)
     await state.set_state(AddExpense.waiting_for_amount)
-    await callback.message.edit_text(text=f"Введите сумму:"
-                                  # reply_markup=ReplyKeyboardRemove()
-                                  )
+    await callback.message.edit_text(text=f"Введите сумму:")
     await callback.answer()
+
 
 @router.message(AddExpense.waiting_for_amount)
 async def input_amount(message: Message,
@@ -49,6 +42,7 @@ async def input_amount(message: Message,
     await message.answer(text=f"Выберете дату:",
                          reply_markup=await SimpleCalendar().start_calendar()
                          )
+
 
 @router.callback_query(SimpleCalendarCallback.filter())
 @put_in_log
@@ -66,11 +60,6 @@ async def input_calendar(
 
     if selected:
         await state.update_data(date=date)
-
-        # await callback.message.answer(
-        #     f"Выбрана дата {date.strftime('%d.%m.%Y')}"
-        # )
-
         await state.set_state(AddExpense.waiting_for_category)
 
         state_data = await state.get_data()
@@ -96,9 +85,8 @@ async def input_calendar(
 @put_in_log
 async def input_category(callback: CallbackQuery,
                          state: FSMContext):
-    # await state.update_data(category=message.text)
 
-    state_data = await state.get_data()     # готовим данные для отправки в БД
+    state_data = await state.get_data()
     amount = state_data["amount"]
     type_exp = state_data["type_exp"]
     date = state_data["date"]
@@ -118,14 +106,6 @@ async def input_category(callback: CallbackQuery,
                       f"\tкатегория:  {category}\n")
 
     await expense_service.create_expense(dto)
-    await callback.message.edit_text(text=output_message,
-                         # reply_markup=ReplyKeyboardRemove()
-                         #reply_markup=cancel_kb()
-                         )
+    await callback.message.edit_text(text=output_message)
     await callback.answer()
     await state.clear()
-
-
-# # @router.callback_query()
-# # async def handle_callback(callback: CallbackQuery):
-# #     data = callback.data
