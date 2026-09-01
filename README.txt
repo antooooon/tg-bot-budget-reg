@@ -27,13 +27,13 @@ Features
 
 ## Architecture
 Telegram Bot
-      ↓
+   ↓
 Handlers        — обработка Telegram updates
-      ↓
+   ↓
 Services        — бизнес-логика
-      ↓
+   ↓
 Repositories    — работа с БД
-      ↓
+   ↓
 SQLAlchemy
    ↓
 SQLite
